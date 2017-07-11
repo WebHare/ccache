@@ -1,6 +1,6 @@
-/* ANSI-C code produced by gperf version 3.0.4 */
+/* ANSI-C code produced by gperf version 3.1 */
 /* Command-line: gperf confitems.gperf  */
-/* Computed positions: -k'1-2' */
+/* Computed positions: -k'1,$' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
       && ('%' == 37) && ('&' == 38) && ('\'' == 39) && ('(' == 40) \
@@ -26,12 +26,12 @@
       && ('w' == 119) && ('x' == 120) && ('y' == 121) && ('z' == 122) \
       && ('{' == 123) && ('|' == 124) && ('}' == 125) && ('~' == 126))
 /* The character set is not based on ISO-646.  */
-#error "gperf generated tables don't work with this execution character set. Please report a bug to <bug-gnu-gperf@gnu.org>."
+#error "gperf generated tables don't work with this execution character set. Please report a bug to <bug-gperf@gnu.org>."
 #endif
 
 #line 8 "confitems.gperf"
 struct conf_item;
-/* maximum key range = 46, duplicates = 0 */
+/* maximum key range = 65, duplicates = 0 */
 
 #ifdef __GNUC__
 __inline
@@ -41,144 +41,154 @@ inline
 #endif
 #endif
 static unsigned int
-confitems_hash (register const char *str, register unsigned int len)
+confitems_hash (register const char *str, register size_t len)
 {
   static const unsigned char asso_values[] =
     {
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50,  0, 13,  0,
-       5, 10, 50,  0, 30, 20, 50,  0, 10, 20,
-       5,  0,  0, 50,  5,  0, 10, 15, 50, 50,
-      20, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-      50, 50, 50, 50, 50, 50
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70,  5, 20,
+       5,  0, 30, 70, 30, 10, 70, 20, 25,  0,
+      10, 70,  0, 70,  0,  0, 10,  0, 70, 70,
+      70, 55, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+      70, 70, 70, 70, 70, 70
     };
-  return len + asso_values[(unsigned char)str[1]] + asso_values[(unsigned char)str[0]];
+  return len + asso_values[(unsigned char)str[len - 1]] + asso_values[(unsigned char)str[0]];
 }
 
-static
-#ifdef __GNUC__
-__inline
-#if defined __GNUC_STDC_INLINE__ || defined __GNUC_GNU_INLINE__
-__attribute__ ((__gnu_inline__))
-#endif
-#endif
 const struct conf_item *
-confitems_get (register const char *str, register unsigned int len)
+confitems_get (register const char *str, register size_t len)
 {
   enum
     {
-      TOTAL_KEYWORDS = 31,
+      TOTAL_KEYWORDS = 34,
       MIN_WORD_LENGTH = 4,
       MAX_WORD_LENGTH = 26,
-      MIN_HASH_VALUE = 4,
-      MAX_HASH_VALUE = 49
+      MIN_HASH_VALUE = 5,
+      MAX_HASH_VALUE = 69
     };
 
   static const struct conf_item wordlist[] =
     {
       {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
       {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
-#line 29 "confitems.gperf"
-      {"path",                19, ITEM(path, env_string)},
+      {"",0,NULL,0,NULL},
+#line 40 "confitems.gperf"
+      {"stats",               30, ITEM(stats, bool)},
+      {"",0,NULL,0,NULL},
+#line 37 "confitems.gperf"
+      {"recache",             27, ITEM(recache, bool)},
+#line 28 "confitems.gperf"
+      {"max_size",            18, ITEM(max_size, size)},
+#line 27 "confitems.gperf"
+      {"max_files",           17, ITEM(max_files, unsigned)},
+#line 39 "confitems.gperf"
+      {"sloppiness",          29, ITEM(sloppiness, sloppiness)},
+      {"",0,NULL,0,NULL},
+#line 19 "confitems.gperf"
+      {"disable",              9, ITEM(disable, bool)},
+#line 10 "confitems.gperf"
+      {"base_dir",             0, ITEM_V(base_dir, env_string, absolute_path)},
+#line 38 "confitems.gperf"
+      {"run_second_cpp",      28, ITEM(run_second_cpp, bool)},
+      {"",0,NULL,0,NULL},
+#line 18 "confitems.gperf"
+      {"direct_mode",          8, ITEM(direct_mode, bool)},
+      {"",0,NULL,0,NULL},
+#line 33 "confitems.gperf"
+      {"prefix_command_cpp",  23, ITEM(prefix_command_cpp, env_string)},
+#line 32 "confitems.gperf"
+      {"prefix_command",      22, ITEM(prefix_command, env_string)},
       {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
+      {"",0,NULL,0,NULL},
+#line 41 "confitems.gperf"
+      {"temporary_dir",       31, ITEM(temporary_dir, env_string)},
+#line 36 "confitems.gperf"
+      {"read_only_memcached", 26, ITEM(read_only_memcached, bool)},
+#line 42 "confitems.gperf"
+      {"umask",               32, ITEM(umask, umask)},
+#line 35 "confitems.gperf"
+      {"read_only_direct",    25, ITEM(read_only_direct, bool)},
       {"",0,NULL,0,NULL},
 #line 13 "confitems.gperf"
       {"compiler",             3, ITEM(compiler, string)},
 #line 11 "confitems.gperf"
       {"cache_dir",            1, ITEM(cache_dir, env_string)},
+      {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
+      {"",0,NULL,0,NULL},
+#line 26 "confitems.gperf"
+      {"log_file",            16, ITEM(log_file, env_string)},
+#line 31 "confitems.gperf"
+      {"path",                21, ITEM(path, env_string)},
+      {"",0,NULL,0,NULL},
+#line 12 "confitems.gperf"
+      {"cache_dir_levels",     2, ITEM_V(cache_dir_levels, unsigned, dir_levels)},
+#line 24 "confitems.gperf"
+      {"keep_comments_cpp",   14, ITEM(keep_comments_cpp, bool)},
+#line 22 "confitems.gperf"
+      {"hash_dir",            12, ITEM(hash_dir, bool)},
+#line 25 "confitems.gperf"
+      {"limit_multiple",      15, ITEM(limit_multiple, float)},
       {"",0,NULL,0,NULL},
 #line 15 "confitems.gperf"
       {"compression",          5, ITEM(compression, bool)},
       {"",0,NULL,0,NULL},
 #line 17 "confitems.gperf"
       {"cpp_extension",        7, ITEM(cpp_extension, string)},
-#line 14 "confitems.gperf"
-      {"compiler_check",       4, ITEM(compiler_check, string)},
-#line 37 "confitems.gperf"
-      {"stats",               27, ITEM(stats, bool)},
-#line 12 "confitems.gperf"
-      {"cache_dir_levels",     2, ITEM_V(cache_dir_levels, unsigned, dir_levels)},
-#line 16 "confitems.gperf"
-      {"compression_level",    6, ITEM(compression_level, unsigned)},
-#line 26 "confitems.gperf"
-      {"log_file",            16, ITEM(log_file, env_string)},
-#line 30 "confitems.gperf"
-      {"prefix_command",      20, ITEM(prefix_command, env_string)},
-#line 36 "confitems.gperf"
-      {"sloppiness",          26, ITEM(sloppiness, sloppiness)},
-#line 10 "confitems.gperf"
-      {"base_dir",             0, ITEM_V(base_dir, env_string, absolute_path)},
-#line 34 "confitems.gperf"
-      {"recache",             24, ITEM(recache, bool)},
-#line 31 "confitems.gperf"
-      {"prefix_command_cpp",  21, ITEM(prefix_command_cpp, env_string)},
-#line 32 "confitems.gperf"
-      {"read_only",           22, ITEM(read_only, bool)},
-#line 40 "confitems.gperf"
-      {"unify",               30, ITEM(unify, bool)},
-      {"",0,NULL,0,NULL},
-#line 24 "confitems.gperf"
-      {"keep_comments_cpp",   14, ITEM(keep_comments_cpp, bool)},
-#line 28 "confitems.gperf"
-      {"max_size",            18, ITEM(max_size, size)},
-#line 27 "confitems.gperf"
-      {"max_files",           17, ITEM(max_files, unsigned)},
-      {"",0,NULL,0,NULL},
-#line 33 "confitems.gperf"
-      {"read_only_direct",    23, ITEM(read_only_direct, bool)},
-#line 19 "confitems.gperf"
-      {"disable",              9, ITEM(disable, bool)},
-#line 38 "confitems.gperf"
-      {"temporary_dir",       28, ITEM(temporary_dir, env_string)},
-#line 35 "confitems.gperf"
-      {"run_second_cpp",      25, ITEM(run_second_cpp, bool)},
-      {"",0,NULL,0,NULL},
-#line 18 "confitems.gperf"
-      {"direct_mode",          8, ITEM(direct_mode, bool)},
-      {"",0,NULL,0,NULL},
-#line 22 "confitems.gperf"
-      {"hash_dir",            12, ITEM(hash_dir, bool)},
-#line 21 "confitems.gperf"
-      {"hard_link",           11, ITEM(hard_link, bool)},
-#line 39 "confitems.gperf"
-      {"umask",               29, ITEM(umask, umask)},
-      {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
-      {"",0,NULL,0,NULL},
-#line 25 "confitems.gperf"
-      {"limit_multiple",      15, ITEM(limit_multiple, float)},
+#line 29 "confitems.gperf"
+      {"memcached_conf",      19, ITEM(memcached_conf, string)},
       {"",0,NULL,0,NULL},
 #line 23 "confitems.gperf"
       {"ignore_headers_in_manifest", 13, ITEM(ignore_headers_in_manifest, env_string)},
       {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
 #line 20 "confitems.gperf"
-      {"extra_files_to_hash", 10, ITEM(extra_files_to_hash, env_string)}
+      {"extra_files_to_hash", 10, ITEM(extra_files_to_hash, env_string)},
+      {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
+      {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
+#line 14 "confitems.gperf"
+      {"compiler_check",       4, ITEM(compiler_check, string)},
+      {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
+      {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
+#line 21 "confitems.gperf"
+      {"hard_link",           11, ITEM(hard_link, bool)},
+#line 43 "confitems.gperf"
+      {"unify",               33, ITEM(unify, bool)},
+      {"",0,NULL,0,NULL},
+#line 16 "confitems.gperf"
+      {"compression_level",    6, ITEM(compression_level, unsigned)},
+      {"",0,NULL,0,NULL},
+#line 34 "confitems.gperf"
+      {"read_only",           24, ITEM(read_only, bool)},
+      {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
+      {"",0,NULL,0,NULL}, {"",0,NULL,0,NULL},
+#line 30 "confitems.gperf"
+      {"memcached_only",      20, ITEM(memcached_only, bool)}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
     {
-      register int key = confitems_hash (str, len);
+      register unsigned int key = confitems_hash (str, len);
 
-      if (key <= MAX_HASH_VALUE && key >= 0)
+      if (key <= MAX_HASH_VALUE)
         {
           register const char *s = wordlist[key].name;
 
@@ -188,4 +198,4 @@ confitems_get (register const char *str, register unsigned int len)
     }
   return 0;
 }
-static const size_t CONFITEMS_TOTAL_KEYWORDS = 31;
+static const size_t CONFITEMS_TOTAL_KEYWORDS = 34;

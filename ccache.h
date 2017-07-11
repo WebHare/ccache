@@ -129,6 +129,8 @@ void fatal(const char *format, ...) ATTR_FORMAT(printf, 1, 2) ATTR_NORETURN;
 void warn(const char *format, ...) ATTR_FORMAT(printf, 1, 2);
 
 void copy_fd(int fd_in, int fd_out);
+int safe_write(int fd_out, const char *data, size_t length);
+int write_file(const char *data, const char *dest, size_t length);
 int copy_file(const char *src, const char *dest, int compress_level);
 int move_file(const char *src, const char *dest, int compress_level);
 int move_uncompressed_file(const char *src, const char *dest,
@@ -186,6 +188,23 @@ char *x_readlink(const char *path);
 bool read_file(const char *path, size_t size_hint, char **data, size_t *size);
 char *read_text_file(const char *path, size_t size_hint);
 char *subst_env_in_string(const char *str, char **errmsg);
+
+// ----------------------------------------------------------------------------
+// memccached.c
+
+int memccached_init(char *conf);
+int memccached_raw_set(const char *key, const char* data, size_t len);
+int memccached_set(
+	const char *key,
+	const char *out, const char *err, const char *dia, const char *dep,
+	size_t out_len, size_t err_len, size_t dia_len, size_t dep_len);
+void *memccached_raw_get(const char *key, char **data, size_t *len);
+void* memccached_get(
+	const char *key,
+	char **out, char **err, char **dia, char **dep,
+	size_t *out_len, size_t *err_len, size_t *dia_len, size_t *dep_len);
+void memccached_free(void *blob);
+int memccached_release(void);
 
 // ----------------------------------------------------------------------------
 // stats.c

@@ -43,6 +43,11 @@ test_failed() {
     $CCACHE -s
     echo
     echo "Test data and log file have been left in $TESTDIR"
+    tail -n 50 $CCACHE_LOGFILE
+    if [ ! -z $CCACHE_MEMCACHED_CONF ]; then
+        memstat --servers=localhost:22122
+        kill %1
+    fi
     exit 1
 }
 
@@ -188,6 +193,8 @@ TEST() {
     unset CCACHE_IGNOREHEADERS
     unset CCACHE_LIMIT_MULTIPLE
     unset CCACHE_LOGFILE
+    unset CCACHE_MEMCACHED_CONF
+    unset CCACHE_MEMCACHED_ONLY
     unset CCACHE_NLEVELS
     unset CCACHE_NOCPP2
     unset CCACHE_NOHASHDIR
@@ -244,13 +251,13 @@ base_tests() {
     $CCACHE_COMPILE -c test1.c
     expect_stat 'cache hit (preprocessed)' 0
     expect_stat 'cache miss' 1
-    expect_stat 'files in cache' 1
+    $CCACHE_NOFILES expect_stat 'files in cache' 1
     expect_equal_object_files reference_test1.o test1.o
 
     $CCACHE_COMPILE -c test1.c
     expect_stat 'cache hit (preprocessed)' 1
     expect_stat 'cache miss' 1
-    expect_stat 'files in cache' 1
+    $CCACHE_NOFILES expect_stat 'files in cache' 1
     expect_equal_object_files reference_test1.o test1.o
 
     # -------------------------------------------------------------------------
@@ -259,7 +266,7 @@ base_tests() {
     $CCACHE_COMPILE -c test1.c -g
     expect_stat 'cache hit (preprocessed)' 0
     expect_stat 'cache miss' 1
-    expect_stat 'files in cache' 1
+    $CCACHE_NOFILES expect_stat 'files in cache' 1
 
     $CCACHE_COMPILE -c test1.c -g
     expect_stat 'cache hit (preprocessed)' 1
@@ -602,7 +609,7 @@ b"
     done
     expect_stat 'cache hit (preprocessed)' 0
     expect_stat 'cache miss' 32
-    expect_stat 'files in cache' 32
+    $CCACHE_NOFILES expect_stat 'files in cache' 32
 
     # -------------------------------------------------------------------------
     TEST "Called for preprocessing"
@@ -1390,6 +1397,52 @@ SUITE_masquerading() {
 
 # =============================================================================
 
+SUITE_memcached_SETUP() {
+    generate_code 1 test1.c
+}
+
+SUITE_memcached() {
+    export CCACHE_MEMCACHED_CONF=--SERVER=localhost:22122
+    memcached -p 22122 &
+    memcached_pid=$!
+    base_tests
+    kill $memcached_pid
+    unset CCACHE_MEMCACHED_CONF
+}
+
+SUITE_memcached_only_SETUP() {
+    generate_code 1 test1.c
+}
+
+SUITE_memcached_only() {
+    CCACHE_NOFILES=true
+    export CCACHE_MEMCACHED_CONF=--SERVER=localhost:22122
+    export CCACHE_MEMCACHED_ONLY=1
+    memcached -p 22122 &
+    memcached_pid=$!
+    base_tests
+    kill $memcached_pid
+    unset CCACHE_MEMCACHED_CONF
+    unset CCACHE_MEMCACHED_ONLY
+    unset CCACHE_NOFILES
+}
+
+SUITE_memcached_socket_SETUP() {
+    generate_code 1 test1.c
+}
+
+SUITE_memcached_socket() {
+    export CCACHE_MEMCACHED_CONF=--SOCKET=\"/tmp/memcached.$$\"
+    memcached -s /tmp/memcached.$$ &
+    memcached_pid=$!
+    base_tests
+    kill $memcached_pid
+    rm /tmp/memcached.$$
+    unset CCACHE_MEMCACHED_CONF
+}
+
+# =============================================================================
+
 SUITE_hardlink_PROBE() {
     touch file1
     if ! ln file1 file2 >/dev/null 2>&1; then
@@ -1563,7 +1616,7 @@ EOF
             test_failed "$dep_file missing"
         fi
     done
-    expect_stat 'files in cache' 12
+    $CCACHE_NOFILES expect_stat 'files in cache' 12
 
     # -------------------------------------------------------------------------
     TEST "-MMD for different source files"
@@ -3510,6 +3563,14 @@ pch
 upgrade
 input_charset
 "
+
+if [ ! -z $CCACHE_MEMCACHED ]; then
+    all_suites="$all_suites
+memcached
+memcached_only
+memcached_socket
+"
+fi
 
 compiler_location=$(which $(echo "$COMPILER" | awk '{print $1}'))
 if [ "$compiler_location" = "$COMPILER" ]; then

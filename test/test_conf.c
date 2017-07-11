@@ -18,7 +18,7 @@
 #include "framework.h"
 #include "util.h"
 
-#define N_CONFIG_ITEMS 31
+#define N_CONFIG_ITEMS 34
 static struct {
 	char *descr;
 	const char *origin;
@@ -68,11 +68,14 @@ TEST(conf_create)
 	CHECK_STR_EQ("", conf->log_file);
 	CHECK_INT_EQ(0, conf->max_files);
 	CHECK_INT_EQ((uint64_t)5 * 1000 * 1000 * 1000, conf->max_size);
+	CHECK_STR_EQ("", conf->memcached_conf);
+	CHECK(!conf->memcached_only);
 	CHECK_STR_EQ("", conf->path);
 	CHECK_STR_EQ("", conf->prefix_command);
 	CHECK_STR_EQ("", conf->prefix_command_cpp);
 	CHECK(!conf->read_only);
 	CHECK(!conf->read_only_direct);
+	CHECK(!conf->read_only_memcached);
 	CHECK(!conf->recache);
 	CHECK(conf->run_second_cpp);
 	CHECK_INT_EQ(0, conf->sloppiness);
@@ -119,11 +122,14 @@ TEST(conf_read_valid_config)
 	  "log_file = $USER${USER} \n"
 	  "max_files = 17\n"
 	  "max_size = 123M\n"
+	  "memcached_conf = --SERVER=localhost\n"
+	  "memcached_only = true\n"
 	  "path = $USER.x\n"
 	  "prefix_command = x$USER\n"
 	  "prefix_command_cpp = y\n"
 	  "read_only = true\n"
 	  "read_only_direct = true\n"
+	  "read_only_memcached = false\n"
 	  "recache = true\n"
 	  "run_second_cpp = false\n"
 	  "sloppiness =     file_macro   ,time_macros,  include_file_mtime,include_file_ctime,file_stat_matches,pch_defines ,  no_system_headers  \n"
@@ -157,11 +163,14 @@ TEST(conf_read_valid_config)
 	CHECK_STR_EQ_FREE1(format("%s%s", user, user), conf->log_file);
 	CHECK_INT_EQ(17, conf->max_files);
 	CHECK_INT_EQ(123 * 1000 * 1000, conf->max_size);
+	CHECK_STR_EQ("--SERVER=localhost", conf->memcached_conf);
+	CHECK(conf->memcached_only);
 	CHECK_STR_EQ_FREE1(format("%s.x", user), conf->path);
 	CHECK_STR_EQ_FREE1(format("x%s", user), conf->prefix_command);
 	CHECK_STR_EQ("y", conf->prefix_command_cpp);
 	CHECK(conf->read_only);
 	CHECK(conf->read_only_direct);
+	CHECK(!conf->read_only_memcached);
 	CHECK(conf->recache);
 	CHECK(!conf->run_second_cpp);
 	CHECK_INT_EQ(SLOPPY_INCLUDE_FILE_MTIME|SLOPPY_INCLUDE_FILE_CTIME|
@@ -383,11 +392,14 @@ TEST(conf_print_items)
 		"lf",
 		4711,
 		98.7 * 1000 * 1000,
+		"mc",
+		false,
 		"p",
 		"pc",
 		"pcc",
 		true,
 		true,
+		false,
 		true,
 		.run_second_cpp = false,
 		SLOPPY_FILE_MACRO|SLOPPY_INCLUDE_FILE_MTIME|
@@ -433,11 +445,14 @@ TEST(conf_print_items)
 	CHECK_STR_EQ("log_file = lf", received_conf_items[n++].descr);
 	CHECK_STR_EQ("max_files = 4711", received_conf_items[n++].descr);
 	CHECK_STR_EQ("max_size = 98.7M", received_conf_items[n++].descr);
+	CHECK_STR_EQ("memcached_conf = mc", received_conf_items[n++].descr);
+	CHECK_STR_EQ("memcached_only = false", received_conf_items[n++].descr);
 	CHECK_STR_EQ("path = p", received_conf_items[n++].descr);
 	CHECK_STR_EQ("prefix_command = pc", received_conf_items[n++].descr);
 	CHECK_STR_EQ("prefix_command_cpp = pcc", received_conf_items[n++].descr);
 	CHECK_STR_EQ("read_only = true", received_conf_items[n++].descr);
 	CHECK_STR_EQ("read_only_direct = true", received_conf_items[n++].descr);
+	CHECK_STR_EQ("read_only_memcached = false", received_conf_items[n++].descr);
 	CHECK_STR_EQ("recache = true", received_conf_items[n++].descr);
 	CHECK_STR_EQ("run_second_cpp = false", received_conf_items[n++].descr);
 	CHECK_STR_EQ("sloppiness = file_macro, include_file_mtime,"

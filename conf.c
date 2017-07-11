@@ -329,11 +329,14 @@ conf_create(void)
 	conf->log_file = x_strdup("");
 	conf->max_files = 0;
 	conf->max_size = (uint64_t)5 * 1000 * 1000 * 1000;
+	conf->memcached_conf = x_strdup("");
+	conf->memcached_only = false;
 	conf->path = x_strdup("");
 	conf->prefix_command = x_strdup("");
 	conf->prefix_command_cpp = x_strdup("");
 	conf->read_only = false;
 	conf->read_only_direct = false;
+	conf->read_only_memcached = false;
 	conf->recache = false;
 	conf->run_second_cpp = true;
 	conf->sloppiness = 0;
@@ -362,6 +365,7 @@ conf_free(struct conf *conf)
 	free(conf->extra_files_to_hash);
 	free(conf->ignore_headers_in_manifest);
 	free(conf->log_file);
+	free(conf->memcached_conf);
 	free(conf->path);
 	free(conf->prefix_command);
 	free(conf->prefix_command_cpp);
@@ -594,6 +598,12 @@ conf_print_items(struct conf *conf,
 	printer(s, conf->item_origins[find_conf("max_size")->number], context);
 	free(s2);
 
+	reformat(&s, "memcached_conf = %s", conf->memcached_conf);
+	printer(s, conf->item_origins[find_conf("memcached_conf")->number], context);
+
+	reformat(&s, "memcached_only = %s", bool_to_string(conf->memcached_only));
+	printer(s, conf->item_origins[find_conf("memcached_only")->number], context);
+
 	reformat(&s, "path = %s", conf->path);
 	printer(s, conf->item_origins[find_conf("path")->number], context);
 
@@ -609,6 +619,11 @@ conf_print_items(struct conf *conf,
 
 	reformat(&s, "read_only_direct = %s", bool_to_string(conf->read_only_direct));
 	printer(s, conf->item_origins[find_conf("read_only_direct")->number],
+	        context);
+
+	reformat(&s, "read_only_memcached = %s",
+	         bool_to_string(conf->read_only_memcached));
+	printer(s, conf->item_origins[find_conf("read_only_memcached")->number],
 	        context);
 
 	reformat(&s, "recache = %s", bool_to_string(conf->recache));
